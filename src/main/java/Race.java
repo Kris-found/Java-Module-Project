@@ -10,7 +10,8 @@ public class Race {
             spaceValue = space;
         }
     }
-    public String getWinner(){ // метод для вывода победителя после расчетов
+    public String getWinner(){ //
+
         return winner;
     }
 }

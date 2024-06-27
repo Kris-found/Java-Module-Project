@@ -9,20 +9,30 @@ public class Main {
             System.out.println("Введите название машины: ");
             String name = scanner.next();
             System.out.println("Название машины №" + (i + 1) + ": " + name);
-            while (true) {
-                System.out.println("Введите скорость машины от 0 до 250: ");
-                int speed = scanner.nextInt();
-                if (speed > 0 && speed <= 250) {
-                    System.out.println("Скорость машины № " + (i + 1) + ": " + speed);
-                    break;
-                } else if (speed <= 0 || speed > 250) {
-                    System.out.println("Некорректное значение скорости. Попробуйте снова");
+            System.out.println("Введите скорость машины от 0 до 250: ");
+                while (true) {
+                    String input = scanner.nextLine().trim();
+                    if(input.isEmpty()){
+                        continue;
+                    }
+                    try {
+                        int speed = Integer.parseInt(input);
+                        if (speed > 0 && speed <= 250) {
+                            System.out.println("Скорость машины № " + (i + 1) + ": " + speed);
+                            Auto autosValue = new Auto(name, speed);
+                            race.calculationOfTheWinner(autosValue);
+                            break;
+                        } else if (speed <= 0 || speed > 250) {
+                            System.out.println("Недопустимое значение скорости. Скорость машины должна быть от 0 до 250");
+                        }
+
+                    } catch (NumberFormatException error){
+                        System.out.println("Некорректное значение. Попробуйте снова");
+                    }
                 }
-                Auto autosValue = new Auto(name, speed); //создаем объект автомобиля со значением параметров
-                race.calculationOfTheWinner(autosValue); //вызываем метод в цикле, производим расчет нового объекта и сравниваем его с предыдущим объектом
-            }
             race.winner = race.getWinner();
         }
         System.out.println("Победитель: " + race.winner);
+        scanner.close();
     }
 }
